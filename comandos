@@ -1,0 +1,13 @@
+Caso erro: can't load screen to srandom state
+set RANDFILE=c:\Users\antuneid\Documents\sign\.rnd
+set OPENSSL_CFG=c:\Programs\OpenSSL\openssl.cfg
+
+gerar private key: openssl genrsa -out privatekey.key 4096
+gerar csr: openssl req -new -sha256 -key privatekey.key -out certreq.csr
+ver a private key: openssl rsa -noout -text -in privatekey.key
+
+gerar self signed: openssl req -x509 -newkey rsa:4096 -keyout privatekey.pem -out certificate.pem -days 365 -nodes -sha256
+verificar: openssl x509 -in certificate.pem -text -noout
+
+openssl x509 -noout -modulus -in public.crt | openssl md5
+openssl rsa -noout -modulus -in private.key | openssl md5
